@@ -6,6 +6,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Column;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.CascadeType;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -25,18 +27,21 @@ public class Usuario {
     @Column(nullable = false)
     private Long id;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false, length = 100)
     private String nombre;
-
-    @Column(nullable = false)
-    private Integer edad;
 
     @Column(nullable = false, length = 100)
     private String correo;
 
-    public Usuario(String nombre, Integer edad, String correo) {
+    @Column(nullable = false, length = 50)
+    private String contraseña;
+
+    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
+    private PerfilUsuario perfilUsuario;
+
+    public Usuario(String nombre, String correo, String contraseña) {
         this.nombre = nombre;
-        this.edad = edad;
         this.correo = correo;
+        this.contraseña = contraseña;
     }
 }
