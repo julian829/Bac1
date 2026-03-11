@@ -6,6 +6,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Column;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.CascadeType;
 
@@ -13,6 +14,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Entity
 @Table(name = "usuario")
@@ -35,6 +38,9 @@ public class Usuario {
 
     @Column(nullable = false, length = 50)
     private String contraseña;
+
+    @OneToMany(mappedBy = "usuario")
+    private List<EventoMeteorologico> eventos;
 
     @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
     private PerfilUsuario perfilUsuario;
